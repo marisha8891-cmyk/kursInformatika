@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Системы счисления - Информатика для студентов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        .algorithm-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #f39c12;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .step {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+
+        button {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .result {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border: 2px solid #17a2b8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border: 2px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .exercise h4 {
+            color: #721c24;
+            margin-bottom: 15px;
+        }
+
+        .answer {
+            background: #e2e3e5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .answer:hover {
+            background: #d1ecf1;
+        }
+        
+        .answer-btn {
+            background: #6c757d;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .answer-btn:hover {
+            background: #5a6268;
+        }
+        
+        .hint-btn {
+            background: #ffc107;
+            color: #212529;
+            padding: 3px 8px;
+            border: none;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .hint-btn:hover {
+            background: #e0a800;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Системы счисления</h1>
+            <p class="subtitle">Алгоритмы перевода из одной системы счисления в десятичную и обратно</p>
+            <nav class="nav">
+                <a href="#motivation">Мотивация</a>
+                <a href="#goals">Цели урока</a>
+                <a href="#actualization">Актуализация</a>
+                <a href="#theory">Теория</a>
+                <a href="#algorithms">Алгоритмы</a>
+                <a href="#video">Видео</a>
+                <a href="#examples">Примеры</a>
+                <a href="#calculator">Калькулятор</a>
+                <a href="#exercises">Задания</a>
+                <a href="#reflection">Рефлексия</a>
+                <a href="#homework">Домашнее задание</a>
+            </nav>
+        </header>
+
+        <section id="motivation" class="section">
+            <h2>🎯 Мотивация к изучению</h2>
+            
+            <div class="algorithm-box">
+                <h3>Зачем изучать системы счисления?</h3>
+                <p>Системы счисления — это основа всей компьютерной техники! Без понимания этих алгоритмов невозможно:</p>
+                <ul>
+                    <li>📱 <strong>Программировать</strong> — компьютеры работают только с двоичными числами</li>
+                    <li>🔧 <strong>Настраивать сети</strong> — IP-адреса записываются в разных системах</li>
+                    <li>🎨 <strong>Работать с графикой</strong> — цвета кодируются в шестнадцатеричной системе</li>
+                    <li>💾 <strong>Понимать работу памяти</strong> — все данные хранятся в двоичном виде</li>
+                </ul>
+                
+                <div class="step">
+                    <strong>Практический пример:</strong><br>
+                    Когда вы видите цвет #FF0000 в веб-дизайне, это красный цвет в шестнадцатеричной системе!<br>
+                    FF₁₆ = 255₁₀ — максимальная яркость красного канала.
+                </div>
+            </div>
+        </section>
+
+        <section id="goals" class="section">
+            <h2>🎯 Цели урока</h2>
+            
+            <div class="algorithm-box">
+                <h3>После изучения темы вы сможете:</h3>
+                <ol>
+                    <li><strong>Понимать</strong> принципы работы позиционных систем счисления</li>
+                    <li><strong>Переводить</strong> числа из любой системы счисления в десятичную</li>
+                    <li><strong>Переводить</strong> числа из десятичной системы в любую другую</li>
+                    <li><strong>Применять</strong> алгоритмы для решения практических задач</li>
+                    <li><strong>Использовать</strong> полученные знания в программировании</li>
+                </ol>
+                
+                <div class="step">
+                    <strong>Критерии успеха:</strong><br>
+                    ✅ Правильно переводите числа между системами<br>
+                    ✅ Понимаете алгоритмы перевода<br>
+                    ✅ Решаете задачи разного уровня сложности<br>
+                    ✅ Применяете знания на практике
+                </div>
+            </div>
+        </section>
+
+        <section id="actualization" class="section">
+            <h2>🔄 Актуализация знаний</h2>
+            
+            <div class="exercise">
+                <h3>Проверьте свои знания!</h3>
+                <p>Ответьте на вопросы, чтобы вспомнить изученный ранее материал:</p>
+                
+                <div class="step">
+                    <strong>Вопрос 1:</strong> Какие цифры используются в десятичной системе счисления?<br>
+                    <button onclick="toggleAnswer(this.nextElementSibling)" class="answer-btn">Показать ответ</button>
+                    <div class="answer" style="display: none;">0, 1, 2, 3, 4, 5, 6, 7, 8, 9</div>
+                </div>
+                
+                <div class="step">
+                    <strong>Вопрос 2:</strong> Что означает позиция цифры в числе?<br>
+                    <button onclick="toggleAnswer(this.nextElementSibling)" class="answer-btn">Показать ответ</button>
+                    <div class="answer" style="display: none;">Позиция определяет вес цифры - на сколько нужно умножить цифру</div>
+                </div>
+                
+                <div class="step">
+                    <strong>Вопрос 3:</strong> Как записывается число 5 в двоичной системе?<br>
+                    <button onclick="toggleAnswer(this.nextElementSibling)" class="answer-btn">Показать ответ</button>
+                    <div class="answer" style="display: none;">101₂ (5 = 4 + 1 = 1×2² + 0×2¹ + 1×2⁰)</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="theory" class="section">
+            <h2>📚 Теоретические основы</h2>
+            
+            <h3>Что такое система счисления?</h3>
+            <p>Система счисления — это способ записи чисел с помощью определенного набора цифр. Основание системы счисления определяет, сколько различных цифр используется для записи чисел.</p>
+            
+            <div class="algorithm-box">
+                <h4>Основные системы счисления:</h4>
+                <ul>
+                    <li><strong>Двоичная (2)</strong> — использует цифры 0, 1</li>
+                    <li><strong>Восьмеричная (8)</strong> — использует цифры 0-7</li>
+                    <li><strong>Десятичная (10)</strong> — использует цифры 0-9</li>
+                    <li><strong>Шестнадцатеричная (16)</strong> — использует цифры 0-9 и буквы A-F</li>
+                </ul>
+            </div>
+
+            <h3>Позиционная запись числа</h3>
+            <p>В позиционной системе счисления значение цифры зависит от её позиции в числе. Число можно представить в виде:</p>
+            <div class="step">
+                <code>N = aₙ × pⁿ + aₙ₋₁ × pⁿ⁻¹ + ... + a₁ × p¹ + a₀ × p⁰</code>
+                <p>где:</p>
+                <ul>
+                    <li><strong>N</strong> — число в десятичной системе</li>
+                    <li><strong>aᵢ</strong> — цифры числа</li>
+                    <li><strong>p</strong> — основание системы счисления</li>
+                    <li><strong>n</strong> — номер позиции (начиная с 0 справа)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="algorithms" class="section">
+            <h2>🔢 Алгоритмы перевода</h2>
+            
+            <h3>Алгоритм перевода из любой системы в десятичную</h3>
+            <div class="algorithm-box">
+                <h4>Пошаговый алгоритм:</h4>
+                <ol>
+                    <li>Пронумеруйте разряды числа справа налево, начиная с 0</li>
+                    <li>Каждую цифру умножьте на основание системы в степени её номера разряда</li>
+                    <li>Сложите все полученные произведения</li>
+                </ol>
+                
+                <div class="step">
+                    <strong>Формула:</strong><br>
+                    <code>N₁₀ = Σ(aᵢ × pⁱ)</code><br>
+                    где i изменяется от 0 до n-1
+                </div>
+            </div>
+
+            <h3>Алгоритм перевода из десятичной в любую систему</h3>
+            <div class="algorithm-box">
+                <h4>Метод деления на основание:</h4>
+                <ol>
+                    <li>Разделите число на основание новой системы счисления</li>
+                    <li>Запишите остаток от деления</li>
+                    <li>Повторяйте деление целой части результата на основание</li>
+                    <li>Продолжайте до тех пор, пока целая часть не станет равной 0</li>
+                    <li>Запишите остатки в обратном порядке</li>
+                </ol>
+                
+                <div class="step">
+                    <strong>Важно:</strong> Остатки записываются в обратном порядке — от последнего к первому!
+                </div>
+            </div>
+        </section>
+
+        <section id="video" class="section">
+            <h2>🎥 Видеоурок</h2>
+            
+            <div class="algorithm-box">
+                <h3>Системы счисления: основы и алгоритмы перевода</h3>
+                <p>Посмотрите видеоурок для лучшего понимания темы:</p>
+                
+                <!-- Встроенное видео -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h4>📹 Видеоурок: "Алгоритмы перевода между системами счисления"</h4>
+                    <p><strong>Длительность:</strong> 8-10 минут | <strong>Уровень:</strong> Для начинающих</p>
+                    
+                    <!-- Вариант 1: Встроенное видео с YouTube (замените ID на реальный) -->
+                    <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 20px 0;">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Системы счисления - алгоритмы перевода"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;">
+                        </iframe>
+                    </div>
+                    
+                    <!-- Альтернативный вариант: Локальное видео -->
+                    
+                    <video width="100%" height="auto" controls style="border-radius: 8px; margin: 20px 0;">
+                        <source src="cc.mp4" type="video/mp4">
+                        <source src="video/systems_conversion.webm" type="video/webm">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                    
+                    
+                    <!-- Альтернативный вариант: Видео с Vimeo -->
+                    <!--
+                    <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 20px 0;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/123456789" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;">
+                        </iframe>
+                    </div>
+                    -->
+                    
+                    <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h5>📋 Содержание видео:</h5>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li><strong>0:00-2:00</strong> - Введение в системы счисления</li>
+                            <li><strong>2:00-4:30</strong> - Алгоритм перевода в десятичную систему</li>
+                            <li><strong>4:30-7:00</strong> - Алгоритм перевода из десятичной системы</li>
+                            <li><strong>7:00-8:30</strong> - Практические примеры</li>
+                            <li><strong>8:30-10:00</strong> - Заключение и выводы</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Кнопки управления -->
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button onclick="toggleVideoControls()" style="background: #17a2b8; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; margin: 0 5px;">
+                            🎛️ Управление видео
+                        </button>
+                        <button onclick="showVideoTranscript()" style="background: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; margin: 0 5px;">
+                            📄 Транскрипт
+                        </button>
+                        <button onclick="downloadVideo()" style="background: #6c757d; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; margin: 0 5px;">
+                            💾 Скачать
+                        </button>
+                    </div>
+                    
+                    <!-- Скрытые элементы -->
+                    <div id="videoControls" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <h6>🎛️ Дополнительные настройки:</h6>
+                        <label>
+                            <input type="checkbox" id="autoPlay"> Автовоспроизведение
+                        </label><br>
+                        <label>
+                            <input type="checkbox" id="subtitles"> Субтитры
+                        </label><br>
+                        <label>
+                            Скорость воспроизведения:
+                            <select id="playbackSpeed">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                            </select>
+                        </label><br><br>
+                        <button onclick="applyVideoSettings()" style="background: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
+                            ✅ Применить настройки
+                        </button>
+                    </div>
+                    
+                    <div id="videoTranscript" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <h6>📄 Транскрипт видео:</h6>
+                        <div style="max-height: 200px; overflow-y: auto; font-size: 14px; line-height: 1.4;">
+                            <p><strong>[0:00]</strong> Добро пожаловать на урок по системам счисления! Сегодня мы изучим алгоритмы перевода чисел между различными системами счисления.</p>
+                            <p><strong>[0:30]</strong> Система счисления - это способ записи чисел с помощью определенного набора символов. В позиционной системе значение цифры зависит от её позиции в числе.</p>
+                            <p><strong>[1:00]</strong> Рассмотрим основные системы: двоичная (основание 2), восьмеричная (8), десятичная (10) и шестнадцатеричная (16).</p>
+                            <p><strong>[2:00]</strong> Алгоритм перевода в десятичную систему: каждую цифру умножаем на основание в степени номера позиции и складываем результаты.</p>
+                            <p><strong>[3:00]</strong> Пример: 1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11₁₀</p>
+                            <p><strong>[4:30]</strong> Для перевода из десятичной системы используем метод деления на основание с записью остатков в обратном порядке.</p>
+                            <p><strong>[5:30]</strong> Пример: 25₁₀ → 25÷2=12(1), 12÷2=6(0), 6÷2=3(0), 3÷2=1(1), 1÷2=0(1) → 11001₂</p>
+                            <p><strong>[7:00]</strong> Эти алгоритмы - основа для работы с компьютерами, где все данные представлены в двоичном виде.</p>
+                            <p><strong>[8:30]</strong> Практикуйтесь с калькулятором на странице и решайте предложенные задания!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <strong>После просмотра видео ответьте:</strong><br>
+                    1. Какие системы счисления чаще всего используются в программировании?<br>
+                    2. Почему компьютеры используют двоичную систему?<br>
+                    3. Как быстро перевести число 15₁₀ в двоичную систему?
+                </div>
+            </div>
+        </section>
+
+        <section id="examples" class="section">
+            <h2>📝 Примеры решения</h2>
+            
+            <h3>Пример 1: Перевод из двоичной в десятичную</h3>
+            <div class="example-box">
+                <p><strong>Задача:</strong> Перевести число 1011₂ в десятичную систему</p>
+                
+                <div class="step">
+                    <strong>Решение:</strong><br>
+                    1. Пронумеруем разряды: 1₃ 0₂ 1₁ 0₀<br>
+                    2. Применим формулу:<br>
+                    <code>1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰</code><br>
+                    <code>= 1×8 + 0×4 + 1×2 + 1×1</code><br>
+                    <code>= 8 + 0 + 2 + 1 = 11₁₀</code>
+                </div>
+                
+                <div class="result">
+                    <strong>Ответ:</strong> 1011₂ = 11₁₀
+                </div>
+            </div>
+
+            <h3>Пример 2: Перевод из десятичной в двоичную</h3>
+            <div class="example-box">
+                <p><strong>Задача:</strong> Перевести число 25₁₀ в двоичную систему</p>
+                
+                <div class="step">
+                    <strong>Решение:</strong><br>
+                    25 ÷ 2 = 12 (остаток 1)<br>
+                    12 ÷ 2 = 6 (остаток 0)<br>
+                    6 ÷ 2 = 3 (остаток 0)<br>
+                    3 ÷ 2 = 1 (остаток 1)<br>
+                    1 ÷ 2 = 0 (остаток 1)<br><br>
+                    Записываем остатки в обратном порядке: <span class="highlight">11001</span>
+                </div>
+                
+                <div class="result">
+                    <strong>Ответ:</strong> 25₁₀ = 11001₂
+                </div>
+            </div>
+
+            <h3>Пример 3: Перевод из восьмеричной в десятичную</h3>
+            <div class="example-box">
+                <p><strong>Задача:</strong> Перевести число 347₈ в десятичную систему</p>
+                
+                <div class="step">
+                    <strong>Решение:</strong><br>
+                    <code>347₈ = 3×8² + 4×8¹ + 7×8⁰</code><br>
+                    <code>= 3×64 + 4×8 + 7×1</code><br>
+                    <code>= 192 + 32 + 7 = 231₁₀</code>
+                </div>
+                
+                <div class="result">
+                    <strong>Ответ:</strong> 347₈ = 231₁₀
+                </div>
+            </div>
+        </section>
+
+        <section id="calculator" class="section">
+            <h2>🧮 Интерактивный калькулятор</h2>
+            
+            <div class="calculator">
+                <h3>Переводчик систем счисления</h3>
+                
+                <div class="form-group">
+                    <label for="inputNumber">Введите число:</label>
+                    <input type="text" id="inputNumber" placeholder="Например: 1011">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fromBase">Из системы счисления:</label>
+                    <select id="fromBase">
+                        <option value="2">Двоичная (2)</option>
+                        <option value="8">Восьмеричная (8)</option>
+                        <option value="10" selected>Десятичная (10)</option>
+                        <option value="16">Шестнадцатеричная (16)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="toBase">В систему счисления:</label>
+                    <select id="toBase">
+                        <option value="2">Двоичная (2)</option>
+                        <option value="8">Восьмеричная (8)</option>
+                        <option value="10" selected>Десятичная (10)</option>
+                        <option value="16">Шестнадцатеричная (16)</option>
+                    </select>
+                </div>
+                
+                <button onclick="convertNumber()">Перевести</button>
+                <button onclick="clearCalculator()">Очистить</button>
+                
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+        </section>
+
+        <section id="exercises" class="section">
+            <h2>📋 Практические задания</h2>
+            
+            <div class="exercise">
+                <h4>🟢 Задание 1 (Базовый уровень) - для начинающих</h4>
+                <p><strong>Цель:</strong> Освоить основы перевода из двоичной системы в десятичную</p>
+                <p>Переведите следующие числа из двоичной системы в десятичную:</p>
+                <ul>
+                    <li>1010₂ = ?₁₀ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>1111₂ = ?₁₀ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>1001₂ = ?₁₀ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                </ul>
+                <div class="answer" onclick="toggleAnswer(this)">
+                    <strong>Ответы с подробным решением:</strong><br>
+                    <strong>1010₂:</strong> 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 8 + 0 + 2 + 0 = 10₁₀<br>
+                    <strong>1111₂:</strong> 1×2³ + 1×2² + 1×2¹ + 1×2⁰ = 8 + 4 + 2 + 1 = 15₁₀<br>
+                    <strong>1001₂:</strong> 1×2³ + 0×2² + 0×2¹ + 1×2⁰ = 8 + 0 + 0 + 1 = 9₁₀
+                </div>
+            </div>
+
+            <div class="exercise">
+                <h4>🟡 Задание 2 (Средний уровень) - для продолжающих</h4>
+                <p><strong>Цель:</strong> Научиться переводить из десятичной системы в двоичную</p>
+                <p>Переведите следующие числа из десятичной системы в двоичную:</p>
+                <ul>
+                    <li>18₁₀ = ?₂ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>31₁₀ = ?₂ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>47₁₀ = ?₂ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                </ul>
+                <div class="answer" onclick="toggleAnswer(this)">
+                    <strong>Ответы с пошаговым решением:</strong><br>
+                    <strong>18₁₀:</strong> 18÷2=9(0), 9÷2=4(1), 4÷2=2(0), 2÷2=1(0), 1÷2=0(1) → 10010₂<br>
+                    <strong>31₁₀:</strong> 31÷2=15(1), 15÷2=7(1), 7÷2=3(1), 3÷2=1(1), 1÷2=0(1) → 11111₂<br>
+                    <strong>47₁₀:</strong> 47÷2=23(1), 23÷2=11(1), 11÷2=5(1), 5÷2=2(1), 2÷2=1(0), 1÷2=0(1) → 101111₂
+                </div>
+            </div>
+
+            <div class="exercise">
+                <h4>🔴 Задание 3 (Продвинутый уровень) - для уверенных</h4>
+                <p><strong>Цель:</strong> Работать с восьмеричной и шестнадцатеричной системами</p>
+                <p>Переведите следующие числа:</p>
+                <ul>
+                    <li>256₈ = ?₁₀ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>89₁₀ = ?₈ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                    <li>ABC₁₆ = ?₁₀ <button onclick="showHint(this)" class="hint-btn">💡 Подсказка</button></li>
+                </ul>
+                <div class="answer" onclick="toggleAnswer(this)">
+                    <strong>Ответы с подробным решением:</strong><br>
+                    <strong>256₈:</strong> 2×8² + 5×8¹ + 6×8⁰ = 2×64 + 5×8 + 6×1 = 128 + 40 + 6 = 174₁₀<br>
+                    <strong>89₁₀:</strong> 89÷8=11(1), 11÷8=1(3), 1÷8=0(1) → 131₈<br>
+                    <strong>ABC₁₆:</strong> A×16² + B×16¹ + C×16⁰ = 10×256 + 11×16 + 12×1 = 2560 + 176 + 12 = 2748₁₀
+                </div>
+            </div>
+
+            <div class="exercise">
+                <h4>🎯 Интерактивное задание с проверкой</h4>
+                <p><strong>Проверьте свои знания:</strong></p>
+                <div class="calculator">
+                    <h5>Задача: Переведите число 1101₂ в десятичную систему</h5>
+                    <input type="number" id="interactiveAnswer" placeholder="Введите ответ">
+                    <button onclick="checkAnswer()">Проверить</button>
+                    <div id="feedback" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reflection" class="section">
+            <h2>🤔 Рефлексия</h2>
+            
+            <div class="algorithm-box">
+                <h3>Оцените свои знания</h3>
+                <p>Ответьте на вопросы для самопроверки:</p>
+                
+                <div class="step">
+                    <strong>1. Понимание теории (1-5 баллов):</strong><br>
+                    Насколько хорошо вы понимаете принципы работы систем счисления?<br>
+                    <select id="theoryScore">
+                        <option value="1">1 - Не понимаю</option>
+                        <option value="2">2 - Понимаю частично</option>
+                        <option value="3">3 - Понимаю в основном</option>
+                        <option value="4">4 - Понимаю хорошо</option>
+                        <option value="5">5 - Понимаю отлично</option>
+                    </select>
+                </div>
+                
+                <div class="step">
+                    <strong>2. Практические навыки (1-5 баллов):</strong><br>
+                    Насколько уверенно вы переводите числа между системами?<br>
+                    <select id="practiceScore">
+                        <option value="1">1 - Не умею</option>
+                        <option value="2">2 - Умею с ошибками</option>
+                        <option value="3">3 - Умею в основном</option>
+                        <option value="4">4 - Умею хорошо</option>
+                        <option value="5">5 - Умею отлично</option>
+                    </select>
+                </div>
+                
+                <div class="step">
+                    <strong>3. Что было самым сложным?</strong><br>
+                    <textarea id="difficultPart" placeholder="Опишите, что вызвало наибольшие затруднения..." style="width: 100%; height: 60px; padding: 10px; border-radius: 5px; border: 1px solid #ddd;"></textarea>
+                </div>
+                
+                <div class="step">
+                    <strong>4. Что было самым интересным?</strong><br>
+                    <textarea id="interestingPart" placeholder="Опишите, что показалось наиболее интересным..." style="width: 100%; height: 60px; padding: 10px; border-radius: 5px; border: 1px solid #ddd;"></textarea>
+                </div>
+                
+                <button onclick="calculateReflection()" style="background: #17a2b8; margin-top: 15px;">Подсчитать результат</button>
+                <div id="reflectionResult" style="margin-top: 15px;"></div>
+            </div>
+        </section>
+
+        <section id="homework" class="section">
+            <h2>📚 Домашнее задание</h2>
+            
+            <div class="exercise">
+                <h3>Обязательные задания (для всех студентов)</h3>
+                <div class="step">
+                    <strong>Задание 1:</strong> Переведите числа из двоичной системы в десятичную:<br>
+                    1100₂, 10101₂, 11110₂
+                </div>
+                
+                <div class="step">
+                    <strong>Задание 2:</strong> Переведите числа из десятичной системы в двоичную:<br>
+                    20₁₀, 35₁₀, 58₁₀
+                </div>
+                
+                <div class="step">
+                    <strong>Задание 3:</strong> Используя интерактивный калькулятор на странице, проверьте свои ответы.
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Дополнительные задания (для желающих получить "5")</h3>
+                <div class="step">
+                    <strong>Задание 4:</strong> Переведите числа между различными системами:<br>
+                    777₈ = ?₁₀, 255₁₀ = ?₁₆, FFF₁₆ = ?₁₀
+                </div>
+                
+                <div class="step">
+                    <strong>Задание 5:</strong> Найдите ошибку в следующем переводе:<br>
+                    1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 10₁₀<br>
+                    <em>Подсказка: проверьте вычисления</em>
+                </div>
+                
+                <div class="step">
+                    <strong>Задание 6:</strong> Придумайте свой алгоритм для быстрого перевода чисел из двоичной системы в восьмеричную.<br>
+                    <em>Подсказка: подумайте о группировке цифр</em>
+                </div>
+            </div>
+            
+            <div class="algorithm-box">
+                <h3>📋 Критерии оценки домашнего задания</h3>
+                <ul>
+                    <li><strong>5 баллов:</strong> Все задания выполнены правильно + дополнительные задания</li>
+                    <li><strong>4 балла:</strong> Все обязательные задания выполнены правильно</li>
+                    <li><strong>3 балла:</strong> Большинство заданий выполнено правильно</li>
+                    <li><strong>2 балла:</strong> Менее половины заданий выполнено правильно</li>
+                </ul>
+                
+                <div class="step">
+                    <strong>Срок сдачи:</strong> До следующего урока<br>
+                    <strong>Форма сдачи:</strong> Письменно в тетради или в электронном виде<br>
+                    <strong>Обязательно:</strong> Показать пошаговое решение для каждого задания
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function convertNumber() {
+            const inputNumber = document.getElementById('inputNumber').value.trim();
+            const fromBase = parseInt(document.getElementById('fromBase').value);
+            const toBase = parseInt(document.getElementById('toBase').value);
+            const resultDiv = document.getElementById('result');
+            
+            if (!inputNumber) {
+                alert('Пожалуйста, введите число для перевода');
+                return;
+            }
+            
+            try {
+                // Переводим в десятичную систему
+                let decimalValue;
+                if (fromBase === 10) {
+                    decimalValue = parseInt(inputNumber);
+                } else {
+                    decimalValue = parseInt(inputNumber, fromBase);
+                }
+                
+                if (isNaN(decimalValue)) {
+                    throw new Error('Неверный формат числа');
+                }
+                
+                // Переводим из десятичной в целевую систему
+                let result;
+                if (toBase === 10) {
+                    result = decimalValue.toString();
+                } else {
+                    result = decimalValue.toString(toBase).toUpperCase();
+                }
+                
+                resultDiv.innerHTML = `
+                    <strong>Результат перевода:</strong><br>
+                    ${inputNumber}<sub>${fromBase}</sub> = ${result}<sub>${toBase}</sub><br>
+                    <small>В десятичной системе: ${decimalValue}<sub>10</sub></small>
+                `;
+                resultDiv.style.display = 'block';
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <strong style="color: #dc3545;">Ошибка:</strong><br>
+                    ${error.message}
+                `;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        function clearCalculator() {
+            document.getElementById('inputNumber').value = '';
+            document.getElementById('fromBase').value = '10';
+            document.getElementById('toBase').value = '10';
+            document.getElementById('result').style.display = 'none';
+        }
+        
+        function toggleAnswer(element) {
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        
+        function toggleVideoControls() {
+            const controlsDiv = document.getElementById('videoControls');
+            if (controlsDiv.style.display === 'none') {
+                controlsDiv.style.display = 'block';
+            } else {
+                controlsDiv.style.display = 'none';
+            }
+        }
+        
+        function showVideoTranscript() {
+            const transcriptDiv = document.getElementById('videoTranscript');
+            if (transcriptDiv.style.display === 'none') {
+                transcriptDiv.style.display = 'block';
+            } else {
+                transcriptDiv.style.display = 'none';
+            }
+        }
+        
+        function downloadVideo() {
+            // В реальном приложении здесь будет ссылка на скачивание видео
+            alert('💾 Скачивание видео\n\nВ реальном уроке здесь будет ссылка для скачивания видеофайла.\n\nРекомендуемые форматы:\n- MP4 (для универсальной совместимости)\n- WebM (для веб-браузеров)\n- AVI (для локального воспроизведения)');
+        }
+        
+        // Функция для управления настройками видео
+        function applyVideoSettings() {
+            const autoPlay = document.getElementById('autoPlay').checked;
+            const subtitles = document.getElementById('subtitles').checked;
+            const speed = document.getElementById('playbackSpeed').value;
+            
+            // В реальном приложении здесь будет код для применения настроек к видео
+            console.log('Настройки видео:', { autoPlay, subtitles, speed });
+            
+            alert(`🎛️ Настройки применены:\n- Автовоспроизведение: ${autoPlay ? 'Включено' : 'Выключено'}\n- Субтитры: ${subtitles ? 'Включены' : 'Выключены'}\n- Скорость: ${speed}x`);
+        }
+        
+        function showHint(button) {
+            const hints = {
+                '1010₂': 'Вспомните: каждая позиция имеет вес 2 в степени номера позиции (справа налево, начиная с 0)',
+                '1111₂': 'Это максимальное 4-разрядное двоичное число. Попробуйте сложить все степени двойки от 0 до 3',
+                '1001₂': 'Обратите внимание на позиции с единицами: крайняя правая и крайняя левая',
+                '18₁₀': 'Начните делить 18 на 2 и записывайте остатки. Не забудьте записать их в обратном порядке!',
+                '31₁₀': '31 - это 2⁵ - 1. Попробуйте найти закономерность в остатках',
+                '47₁₀': '47 = 32 + 15. Какие степени двойки входят в это число?',
+                '256₈': 'Используйте формулу: 2×8² + 5×8¹ + 6×8⁰',
+                '89₁₀': 'Делите 89 на 8 и записывайте остатки в обратном порядке',
+                'ABC₁₆': 'A=10, B=11, C=12. Используйте формулу: A×16² + B×16¹ + C×16⁰'
+            };
+            
+            const problemText = button.previousElementSibling.textContent.trim();
+            const problemKey = problemText.split(' = ')[0];
+            
+            if (hints[problemKey]) {
+                alert('💡 Подсказка:\n' + hints[problemKey]);
+            } else {
+                alert('💡 Подсказка:\nПопробуйте использовать изученные алгоритмы перевода!');
+            }
+        }
+        
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('interactiveAnswer').value);
+            const correctAnswer = 13; // 1101₂ = 13₁₀
+            const feedbackDiv = document.getElementById('feedback');
+            
+            if (isNaN(userAnswer)) {
+                feedbackDiv.innerHTML = '<div style="color: #dc3545;">❌ Пожалуйста, введите число</div>';
+                return;
+            }
+            
+            if (userAnswer === correctAnswer) {
+                feedbackDiv.innerHTML = '<div style="color: #28a745;">✅ Правильно! 1101₂ = 13₁₀<br>Решение: 1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = 13</div>';
+            } else {
+                feedbackDiv.innerHTML = '<div style="color: #dc3545;">❌ Неправильно. Попробуйте еще раз!<br>Подсказка: 1101₂ = 1×2³ + 1×2² + 0×2¹ + 1×2⁰</div>';
+            }
+        }
+        
+        function calculateReflection() {
+            const theoryScore = parseInt(document.getElementById('theoryScore').value);
+            const practiceScore = parseInt(document.getElementById('practiceScore').value);
+            const difficultPart = document.getElementById('difficultPart').value;
+            const interestingPart = document.getElementById('interestingPart').value;
+            
+            const totalScore = theoryScore + practiceScore;
+            const maxScore = 10;
+            const percentage = (totalScore / maxScore) * 100;
+            
+            let grade, message, color;
+            
+            if (percentage >= 90) {
+                grade = 'Отлично';
+                message = 'Вы отлично освоили тему!';
+                color = '#28a745';
+            } else if (percentage >= 70) {
+                grade = 'Хорошо';
+                message = 'Вы хорошо понимаете материал, но есть что доработать.';
+                color = '#17a2b8';
+            } else if (percentage >= 50) {
+                grade = 'Удовлетворительно';
+                message = 'Вы понимаете основы, но нужно больше практики.';
+                color = '#ffc107';
+            } else {
+                grade = 'Неудовлетворительно';
+                message = 'Рекомендуется повторить материал и обратиться за помощью.';
+                color = '#dc3545';
+            }
+            
+            const resultDiv = document.getElementById('reflectionResult');
+            resultDiv.innerHTML = `
+                <div style="background: ${color}; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <h4>Результат самооценки: ${grade}</h4>
+                    <p><strong>Баллы:</strong> ${totalScore}/${maxScore} (${percentage.toFixed(1)}%)</p>
+                    <p><strong>Оценка:</strong> ${message}</p>
+                    ${difficultPart ? `<p><strong>Сложности:</strong> ${difficultPart}</p>` : ''}
+                    ${interestingPart ? `<p><strong>Интересное:</strong> ${interestingPart}</p>` : ''}
+                </div>
+            `;
+        }
+        
+        // Плавная прокрутка к разделам
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Валидация ввода для калькулятора
+        document.getElementById('inputNumber').addEventListener('input', function(e) {
+            const fromBase = parseInt(document.getElementById('fromBase').value);
+            const value = e.target.value;
+            
+            // Проверяем допустимые символы в зависимости от системы счисления
+            let validChars;
+            switch(fromBase) {
+                case 2:
+                    validChars = /^[01]*$/;
+                    break;
+                case 8:
+                    validChars = /^[0-7]*$/;
+                    break;
+                case 10:
+                    validChars = /^[0-9]*$/;
+                    break;
+                case 16:
+                    validChars = /^[0-9A-Fa-f]*$/;
+                    break;
+                default:
+                    validChars = /^[0-9A-Fa-f]*$/;
+            }
+            
+            if (!validChars.test(value)) {
+                e.target.value = value.slice(0, -1);
+            }
+        });
+    </script>
+</body>
+</html>
